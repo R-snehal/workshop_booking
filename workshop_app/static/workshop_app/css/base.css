@@ -17,3 +17,33 @@
     padding-top: 5em;
     padding-bottom: 5em;
 }
+
+/* Custom styles for all devices */
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Media query for mobile devices (screens up to 768px wide)
+*/
+@media (max-width: 768px) {
+    /* Style the navigation bar for small screens */
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+    
+    /* Make the content take up full width on mobile */
+    .base-content {
+        padding: 10px;
+    }
+
+    /* Adjust button sizes for touchscreens */
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
