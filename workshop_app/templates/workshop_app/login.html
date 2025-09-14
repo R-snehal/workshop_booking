@@ -1,53 +1,232 @@
 {% extends 'workshop_app/base.html' %}
+{% load static %}
 
 {% block title %}
-    Login
+    FOSSEE Workshops Login
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-md-offset-6">
-                <div class="card">
-                    <div class="card-body">
-                        <form class="px-3 py-3" method="post">
-                        {% csrf_token %}
-                        {% if form.errors %}
-                            {% for field in form %}
-                                {% for error in field.errors %}
-                                    <div class="alert alert-dismissible alert-danger">
-                                        <button type="button" class="close" data-dismiss="alert">
-                                            <i class="fa fa-close"></i>
-                                        </button>
-                                        <strong>{{ error|escape }}</strong>
-                                    </div>
-                                {% endfor %}
-                            {% endfor %}
-                            {% for error in form.non_field_errors %}
+<style>
+    body {
+        /* Set background image from the new UI and apply a dark overlay */
+        background: url('{% static "workshop_app/img/bg.jpeg" %}') no-repeat center center fixed;
+        background-size: cover;
+        position: relative;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Space for header and footer */
+        align-items: center;
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Dark overlay with blur effect */
+    body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6); /* Darker overlay */
+        backdrop-filter: blur(3px);
+        z-index: -1;
+    }
+
+    .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        flex-grow: 1; /* Allows it to take up available vertical space */
+        padding: 20px;
+    }
+
+    .content-wrapper {
+        display: flex;
+        width: 100%;
+        max-width: 1200px; /* Aligns with the second UI's layout */
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Left-side hero section */
+    .hero-section {
+        color: #fff;
+        text-align: left;
+        flex: 1;
+        padding-right: 50px;
+    }
+    .hero-section h1 {
+        font-size: 3.5rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    .hero-section p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* Login card and its elements */
+    .login-card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        padding: 30px;
+        color: #fff;
+        width: 100%;
+        max-width: 380px;
+        text-align: center;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .login-card:hover {
+        transform: scale(1.02);
+    }
+
+    .login-card .card-title {
+        font-weight: bold;
+        font-size: 1.8rem;
+    }
+
+    .form-group label {
+        display: block;
+        text-align: left;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 500;
+        margin-bottom: 8px;
+    }
+
+    .form-control-glass {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #fff;
+        border-radius: 10px;
+        padding: 10px 15px;
+        width: 100%;
+    }
+
+    .form-control-glass:focus {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: #00c6ff;
+        color: #fff;
+        box-shadow: 0 0 0 0.25rem rgba(0, 198, 255, 0.25);
+    }
+
+    .form-control-glass::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .btn-glass {
+        background: linear-gradient(45deg, #071729, #00c6ff);
+        border: none;
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        color: #fff;
+        width: 100%;
+    }
+
+    .btn-glass:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+    }
+
+    .link-wrapper {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .link-glass {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .link-glass:hover {
+        color: #fff;
+        text-decoration: underline;
+    }
+
+    /* Social media icons */
+    .social-links {
+        margin-top: 20px;
+    }
+    .social-links a {
+        color: #fff;
+        font-size: 1.5rem;
+        margin: 0 10px;
+        transition: color 0.3s ease;
+    }
+    .social-links a:hover {
+        color: #00c6ff;
+    }
+
+    /* Footer style */
+    .footer {
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        color: rgba(255, 255, 255, 0.7);
+    }
+</style>
+
+<div class="main-container">
+    <div class="content-wrapper">
+        <div class="hero-section d-none d-md-block">
+            <h1>Welcome to FOSSEE Workshops</h1>
+            <p>Your hub for learning and growing. Sign in to manage your workshops and proposals.</p>
+        </div>
+
+        <div class="login-card">
+            <div class="card-body">
+                <h2 class="card-title mb-4">Sign in</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {% if form.errors %}
+                        {% for field in form %}
+                            {% for error in field.errors %}
                                 <div class="alert alert-dismissible alert-danger">
-                                    <button type="button" class="close" data-dismiss="alert">
-                                        <i class="fa fa-close"></i>
-                                    </button>
                                     <strong>{{ error|escape }}</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             {% endfor %}
-                        {% endif %}
-                        <div class="form-group">
-                          <label for="id_username">Username</label>
-                          {{ form.username }}
-                        </div>
-                        <div class="form-group">
-                          <label for="id_password">Password</label>
-                          {{ form.password }}
-                        </div>
-                        <button type="submit" class="btn btn-primary">Sign in</button>
-                        </form>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'workshop_app:register' %}">New around here? Sign up</a>
-                        <a class="dropdown-item" href="{% url 'password_reset' %}">Forgot password?</a>
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <div class="alert alert-dismissible alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="form-group mb-3">
+                        <label for="id_username">Username</label>
+                        <input type="text" name="username" id="id_username" class="form-control-glass" placeholder="Username" required>
                     </div>
-                </div>  
+                    <div class="form-group mb-4">
+                        <label for="id_password">Password</label>
+                        <input type="password" name="password" id="id_password" class="form-control-glass" placeholder="Password" required>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-glass btn-lg">Sign in</button>
+                    </div>
+                </form>
+                
+                <div class="link-wrapper">
+                    <a class="link-glass" href="{% url 'workshop_app:register' %}">Don't have an account? Sign up</a>
+                    <a class="link-glass" href="{% url 'password_reset' %}">Forgot password?</a>
+                </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
