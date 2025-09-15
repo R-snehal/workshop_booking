@@ -69,6 +69,19 @@ The improvements were guided by the **principles of simplicity and user-centrici
 
 ---
 
+### Before and After
+
+To showcase the impact of these changes, here are screenshots of the previous and new designs.
+
+**Before:**
+![Old design of the user interface](assets/O_Loginpage.png)(assets/O_LogoutPage.png)(assets/O_RegistrationPage.png)
+
+
+**After:**
+![New, improved design of the user interface](assets/M_login.png) (assets/M_logout.png) (assets/M_register.png)
+
+---
+
 ## Ensuring Responsiveness
 
 I ensured responsiveness using a **mobile-first approach**. I started by designing and developing for the smallest screens first, then progressively enhanced the layout for larger devices. I used **CSS Grid and Flexbox** extensively, which are modern layout modules perfect for creating flexible and fluid designs. The key steps were:
