@@ -69,16 +69,27 @@ The improvements were guided by the **principles of simplicity and user-centrici
 
 ---
 
-### Before and After
+### Before and After Comparison
 
-To showcase the impact of these changes, here are screenshots of the previous and new designs.
+To showcase the impact of these changes, here are side-by-side screenshots of the previous and new designs for the key pages.
 
+#### Login Page
 **Before:**
-![Old design of the user interface](assets/O_Loginpage.png)(assets/O_LogoutPage.png)(assets/O_RegistrationPage.png)
-
-
+![Old design of the login page](assets/O_Loginpage.png)
 **After:**
-![New, improved design of the user interface](assets/M_login.png) (assets/M_logout.png) (assets/M_register.png)
+![New, improved design of the login page](assets/M_login.png)
+
+#### Registration Page
+**Before:**
+![Old design of the registration page](assets/O_RegistrationPage.png)
+**After:**
+![New, improved design of the registration page](assets/M_register.png)
+
+#### Logout Page
+**Before:**
+![Old design of the logout page](assets/O_LogoutPage.png)
+**After:**
+![New, improved design of the logout page](assets/M_logout.png)
 
 ---
 
